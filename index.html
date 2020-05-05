@@ -27,39 +27,43 @@
             </p>
 
         </section>
-        <section class="section">
-            <div class="columns">
-                <div class="column">
-                    <div class="field">
-                        <label class="label">Szerokość geograficzna</label>
-                        <div class="control is-expanded">
-                            <input class="input" type="number" placeholder="np. 52.2074"  v-model="latitude1" required>
+        <form>
+            <section class="section">
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Szerokość geograficzna</label>
+                            <div class="control is-expanded">
+                                <input class="input" type="number" placeholder="np. 52.2074"  name="form[latitude1]" v-model="latitude1" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Długość geograficzna</label>
+                            <div class="control is-expanded">
+                                <input class="input" type="number" placeholder="np. 20.9150" name="form[longitude1]" v-model="longitude1" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="field">
-                        <label class="label">Długość geograficzna</label>
-                        <div class="control is-expanded">
-                            <input class="input" type="number" placeholder="np. 20.9150" v-model="longitude1" required>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Szerokość geograficzna</label>
+                            <div class="control is-expanded">
+                                <input class="input" type="number" name="form[latitude2]" v-model="latitude2" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Długość geograficzna</label>
+                            <div class="control is-expanded">
+                                <input class="input" type="number" name="form[longitude2]" v-model="longitude2" required>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="field">
-                        <label class="label">Szerokość geograficzna</label>
-                        <div class="control is-expanded">
-                            <input class="input" type="number" v-model="latitude2" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Długość geograficzna</label>
-                        <div class="control is-expanded">
-                            <input class="input" type="number" v-model="longitude2" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="button is-primary is-large is-fullwidth" v-on:click="calculate()">Oblicz</button>
-        </section>
+
+                <button type="button" class="button is-primary is-large is-fullwidth" v-on:click="callServer()">Oblicz</button>
+            </section>
+        </form>
         <section class="section" v-if="distance">
             <article class="message is-warning">
                 <div class="message-header">
@@ -67,7 +71,7 @@
                     <button class="delete" aria-label="delete" v-on:click="reset()"></button>
                 </div>
                 <div class="message-body">
-                    Odległość między wprowadzonymi punktami wynosi <strong>{{ Math.round(distance) }} km ({{ Math.round(1000*distance) }} m) </strong>
+                    Odległość między wprowadzonymi punktami wynosi <strong>{{ Math.round(distance/1000) }} km ({{ Math.round(distance) }} m) </strong>
                 </div>
             </article>
         </section>
@@ -76,6 +80,3 @@
     <script src="js/app.js"></script>
 </body>
 </html>
-
-
-

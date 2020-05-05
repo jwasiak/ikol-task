@@ -8,9 +8,6 @@ var app = new Vue({
         distance: null
     },
     methods: {
-        calculate: function (){
-            this.haversine();
-        },
         reset: function() {
             this.distance = null;
             this.latitude1 = null;
@@ -24,20 +21,17 @@ var app = new Vue({
             this.latitude2 = 52.20743105;
             this.longitude2 = 20.915034212779624;
         },
-        radians: function(deg) {
-            return deg/180.0 * Math.PI;
-        },
-        haversine: function() {
-           var lat1 = this.radians(this.latitude1),
-               lon1 = this.radians(this.longitude1),
-               lat2 = this.radians(this.latitude2),
-               lon2 = this.radians(this.longitude2);
-           var R = 6372.8; // km
-           var dLat = lat2 - lat1;
-           var dLon = lon2 - lon1;
-           var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLon / 2) * Math.sin(dLon /2) * Math.cos(lat1) * Math.cos(lat2);
-           var c = 2 * Math.asin(Math.sqrt(a));
-           this.distance = R * c;
+        callServer: function() {
+            var self = this;
+            var body = new FormData( document.querySelector('form') );
+            var request = new Request('app.php',{ method: 'POST', body: body });
+            fetch(request).then( function(res) {
+                return res.json();
+            }).then( function (data) {
+                self.distance = data.distance;
+            }).catch ( function(err) {
+                alert(err);
+            });
         }
     }
 })
