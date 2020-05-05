@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <title>Zadanie testowe dla IKOL System sp. z o.o.</title>
+</head>
+<body>
+    <div class="container" id="app">
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title" v-on:click="example()">
+                        Oblicz odległość pomiędzy punktami
+                    </h1>
+                    <h2 class="subtitle">
+                        Zadanie testowe dla IKOL System sp. z o.o.
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <p>
+                Aplikacja oblicza odległość pomiędzy dwoma punktami geograficznymi. Współrzędne punktów należy podać w formacie dziesiętnym.
+                Obliczenia wykonane są zgodnie z  <a href="https://rosettacode.org/wiki/Haversine_formula"> formułą Haversine</a>.
+            </p>
+
+        </section>
+        <section class="section">
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Szerokość geograficzna</label>
+                        <div class="control is-expanded">
+                            <input class="input" type="number" placeholder="np. 52.2074"  v-model="latitude1" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Długość geograficzna</label>
+                        <div class="control is-expanded">
+                            <input class="input" type="number" placeholder="np. 20.9150" v-model="longitude1" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Szerokość geograficzna</label>
+                        <div class="control is-expanded">
+                            <input class="input" type="number" v-model="latitude2" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Długość geograficzna</label>
+                        <div class="control is-expanded">
+                            <input class="input" type="number" v-model="longitude2" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="button is-primary is-large is-fullwidth" v-on:click="calculate()">Oblicz</button>
+        </section>
+        <section class="section" v-if="distance">
+            <article class="message is-warning">
+                <div class="message-header">
+                    <p>Wynik obliczeń</p>
+                    <button class="delete" aria-label="delete" v-on:click="reset()"></button>
+                </div>
+                <div class="message-body">
+                    Odległość między wprowadzonymi punktami wynosi <strong>{{ Math.round(distance) }} km ({{ Math.round(1000*distance) }} m) </strong>
+                </div>
+            </article>
+        </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
